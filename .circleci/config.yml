@@ -3,13 +3,20 @@ version: 2.1
 orbs:
   cli: circleci/circleci-cli@0.1.9
   orb-tools: circleci/orb-tools@10.0
-  test-orb: klsember/test-orb@dev:<<pipeline.git.branch>>
-
+  test-orb: klsember/test-orb@<<pipeline.parameters.dev-orb-version>>
+ 
 parameters:
   run-integration-tests:
     description: An internal flag to prevent integration test from running before a development version has been created.
     type: boolean
     default: false
+  dev-orb-version:
+    description: >
+      The development version of the orb to test.
+      This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
+      A "dev:alpha" version must exist for the initial pipeline run.
+    type: string
+    default: "dev:alpha"
     
 jobs:
   validate:
