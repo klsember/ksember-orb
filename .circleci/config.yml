@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   cli: circleci/circleci-cli@0.1.9
   orb-tools: circleci/orb-tools@10.0
-  test-orb: klsember/test-orb@<<pipeline.parameters.dev-orb-version>>
+  test-orb: klsember/test-orb@dev:test-orb1
  
 parameters:
   run-integration-tests:
@@ -42,12 +42,12 @@ jobs:
           name: "Run Setup Command"
           command: |
             circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
-      - orb-tools/publish-dev:
-          orb-name: klsember/test-orb
-          context: orb-publishing # A restricted context containing your private publishing credentials. Will only execute if approved by an authorized user.
-          requires:
-            - orb-tools/lint
-            - orb-tools/pack
+- run:
+      name: >
+        Publish orb at << parameters.orb-path >> to << parameters.orb-ref >>
+      command: >
+        circleci orb publish --skip-update-check orb.yml klsember/test-orb@dev:test-orb1
+
 
 
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
