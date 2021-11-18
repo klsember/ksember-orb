@@ -13,7 +13,7 @@ parameters:
 
   validate:
     docker:
-      - image: cimg/base:stable
+      - image: 'circleci/circleci-cli:latest'
     steps:
       - checkout
       - cli/install
@@ -26,14 +26,9 @@ parameters:
           command: |
             circleci orb validate ~/project/src/@orb.yml
 
-
-  ##--------------------------------- DEV-PUBLISH ---------------------------------------------------
-  ##--------------------------------- DEV-PUBLISH ---------------------------------------------------
-  ##--------------------------------- DEV-PUBLISH ---------------------------------------------------
-
   dev-publish:
     docker:
-      - image: cimg/base:stable
+      - image: 'circleci/circleci-cli:latest'
     environment:
       dev-orb-version: dev:<< pipeline.git.branch	>>
     steps:
