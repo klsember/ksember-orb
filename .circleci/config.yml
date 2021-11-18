@@ -42,11 +42,11 @@ jobs:
           name: "Run Setup Command"
           command: |
             circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
-- run:
-      name: >
-        Publish orb at << parameters.orb-path >> to << parameters.orb-ref >>
-      command: >
-        circleci orb publish --skip-update-check orb.yml klsember/test-orb@dev:test-orb1
+      - run:
+          name: >
+            Publish orb at << parameters.orb-path >> to << parameters.orb-ref >>
+          command: |
+            circleci orb publish --skip-update-check orb.yml klsember/test-orb@dev:test-orb1
 
 
 
