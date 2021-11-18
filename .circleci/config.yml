@@ -33,8 +33,6 @@ jobs:
   dev-publish:
     docker:
       - image: 'circleci/circleci-cli:latest'
-    environment:
-      dev-orb-version: dev:<< pipeline.git.branch	>>
     steps:
       - checkout
       - cli/install
@@ -43,8 +41,7 @@ jobs:
           command: |
             circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
       - run:
-          name: >
-            Publish orb at << parameters.orb-path >> to << parameters.orb-ref >>
+          name: Publish Orb
           command: |
             circleci orb publish --skip-update-check orb.yml klsember/test-orb@dev:test-orb1
 
