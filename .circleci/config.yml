@@ -35,10 +35,12 @@ jobs:
           name: "Run Setup Command"
           command: |
             circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
-      - run:
-          name: "Publish Dev Version"
-          command: |
-            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@dev:<<pipeline.git.branch>> --token $CIRCLE_OWNER_TOKEN
+      - orb-tools/publish-dev:
+          orb-name: klsember/test-orb
+          context: orb-publishing # A restricted context containing your private publishing credentials. Will only execute if approved by an authorized user.
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
 
 
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
