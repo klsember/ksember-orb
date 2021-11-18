@@ -39,7 +39,12 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - setup
+      - checkout
+      - cli/install
+      - run:
+          name: "Run Setup Command"
+          command: |
+            circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
       - run:
           name: "Validate Orb File"
           command: |
@@ -56,7 +61,12 @@ jobs:
     environment:
       dev-orb-version: dev:<< pipeline.git.branch	>>
     steps:
-      - setup
+      - checkout
+      - cli/install
+      - run:
+          name: "Run Setup Command"
+          command: |
+            circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
       - run:
           name: "Publish Dev Version"
           command: |
