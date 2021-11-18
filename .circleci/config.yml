@@ -16,7 +16,7 @@ parameters:
       This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
       A "dev:<<branch-name>>" version must exist for the initial pipeline run.
     type: string
-    default: "dev:feature-orb-initialize"
+    default: "dev:${CIRCLE_BRANCH}"
 
 commands:
   setup:
