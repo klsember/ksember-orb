@@ -22,10 +22,6 @@ jobs:
           name: "Run Setup Command"
           command: |
             circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
-      - run:
-          name: "Validate Orb File"
-          command: |
-            circleci orb validate ~/project/src/@orb.yml
 
   dev-publish:
     docker:
