@@ -43,10 +43,6 @@ jobs:
           name: "Publish Dev Version"
           command: |
             circleci orb publish ~/project/src/@orb.yml klsember/test-orb@dev:<<pipeline.git.branch>> --token $CIRCLE_OWNER_TOKEN
-      - run:
-          name: "Get Orb Info If Any"
-          command: |
-            circleci orb info klsember/test-orb
 
 
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
