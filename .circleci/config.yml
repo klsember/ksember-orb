@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Publish Orb
           command: |
-            circleci orb publish --skip-update-check ~/project/src/@orb.yml klsember/test-orb@dev:test-orb1 --token $CIRCLE_OWNER_TOKEN
+            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@dev:test-orb1 --token $CIRCLE_TOKEN
 
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
   integration-test-1:
@@ -74,3 +74,5 @@ workflows:
           requires:
             - orb-tools/lint
             - orb-tools/pack
+          context:
+            - orb-publishing
