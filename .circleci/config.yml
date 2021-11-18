@@ -16,7 +16,7 @@ parameters:
       This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
       A "dev:<<branch-name>>" version must exist for the initial pipeline run.
     type: string
-    default: "dev:${CIRCLE_BRANCH}"
+    default: "dev:feature-test"
 
 commands:
   setup:
@@ -53,12 +53,14 @@ jobs:
   dev-publish:
     docker:
       - image: cimg/base:stable
+    environment:
+      dev-orb-version: dev:<< pipeline.git.branch	>>
     steps:
       - setup
       - run:
           name: "Publish Dev Version"
           command: |
-            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@dev:${CIRCLE_BRANCH} --token $CIRCLE_OWNER_TOKEN
+            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@<<pipeline.parameters.dev-orb-version>> --token $CIRCLE_OWNER_TOKEN
       - run:
           name: "Get Orb Info If Any"
           command: |
