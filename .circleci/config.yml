@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   cli: circleci/circleci-cli@0.1.9
   orb-tools: circleci/orb-tools@10.0
-  test-orb: klsember/test-orb@<<pipeline.parameters.dev-orb-version>>
+  test-orb: klsember/test-orb@dev:<<pipeline.git.branch>>
 
 parameters:
   run-integration-tests:
@@ -60,7 +60,7 @@ jobs:
       - run:
           name: "Publish Dev Version"
           command: |
-            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@<<pipeline.parameters.dev-orb-version>> --token $CIRCLE_OWNER_TOKEN
+            circleci orb publish ~/project/src/@orb.yml klsember/test-orb@dev:<<pipeline.git.branch>> --token $CIRCLE_OWNER_TOKEN
       - run:
           name: "Get Orb Info If Any"
           command: |
