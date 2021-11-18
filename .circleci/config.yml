@@ -10,30 +10,6 @@ parameters:
     description: An internal flag to prevent integration test from running before a development version has been created.
     type: boolean
     default: false
-  dev-orb-version:
-    description: >
-      The development version of the orb to test.
-      This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
-      A "dev:<<branch-name>>" version must exist for the initial pipeline run.
-    type: string
-    default: "dev:feature-test"
-
-commands:
-  setup:
-    description: Setting Up the project.....
-    steps:
-      - checkout
-      - cli/install
-      - run:
-          name: "Run Setup Command"
-          command: |
-            circleci setup --no-prompt --token $CIRCLE_OWNER_TOKEN --no-prompt --host "https://circleci.com"
-
-jobs:
-
-  ##--------------------------------- VALIDATE ---------------------------------------------------------
-  ##--------------------------------- VALIDATE ---------------------------------------------------------
-  ##--------------------------------- VALIDATE ---------------------------------------------------------
 
   validate:
     docker:
@@ -106,21 +82,4 @@ workflows:
           requires:
             - orb-tools/lint
             - orb-tools/pack
-
-      # Trigger an integration workflow to test the
-      # dev:${CIRCLE_SHA1:0:7} version of your orb
-      - orb-tools/trigger-integration-tests-workflow:
-          name: trigger-integration-dev
-          context: orb-publishing
-          requires:
-            - dev-publish
             
-  # This `integration-test_deploy` workflow will only run
-  # when the run-integration-tests pipeline parameter is set to true.
-  # It is meant to be triggered by the "trigger-integration-tests-workflow"
-  # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
-  integration-test_deploy:
-    when: << pipeline.parameters.run-integration-tests >>
-    jobs:
-      # Run any integration tests defined within the `jobs` key.
-      - integration-test-1
