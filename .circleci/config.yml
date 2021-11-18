@@ -10,7 +10,8 @@ parameters:
     description: An internal flag to prevent integration test from running before a development version has been created.
     type: boolean
     default: false
-
+    
+jobs:
   validate:
     docker:
       - image: 'circleci/circleci-cli:latest'
