@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Publish Orb
           command: |
-            circleci orb publish --skip-update-check orb.yml klsember/test-orb@dev:test-orb1
+            circleci orb publish --skip-update-check ~/project/src/@orb.yml klsember/test-orb@dev:test-orb1
 
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
   integration-test-1:
