@@ -51,7 +51,8 @@ workflows:
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: klsember/test-orb
-          context: orb-publishing # A restricted context containing your private publishing credentials. Will only execute if approved by an authorized user.
+          publish-token-variable: CI_OWNER_TOKEN
+          context: Orbs
           requires:
             - orb-tools/lint
             - orb-tools/pack
@@ -61,7 +62,8 @@ workflows:
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration-dev
-          context: orb-publishing
+          token-variable: CI_OWNER_TOKEN
+          context: Orbs
           requires:
             - orb-tools/publish-dev
 
@@ -82,7 +84,8 @@ workflows:
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: klsember/test-orb
-          context: orb-publishing
+          publish-token-variable: CI_OWNER_TOKEN
+          context: Orbs
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: false
