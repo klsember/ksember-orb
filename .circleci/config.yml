@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   cli: circleci/circleci-cli@0.1.9
   orb-tools: circleci/orb-tools@10.0
-  test-orb: klsember/test-orb@dev:test-orb1
+  #test-orb: klsember/test-orb@dev:test-orb1
 
 parameters:
   run-integration-tests:
@@ -16,7 +16,7 @@ parameters:
       This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
       A "dev:alpha" version must exist for the initial pipeline run.
     type: string
-    default: "dev:alpha"
+    default: "dev:test-orb1"
 
 jobs:
   validate:
@@ -76,13 +76,4 @@ workflows:
             - orb-tools/pack
           context:
             - orb-publishing
-      - orb-tools/trigger-integration-tests-workflow:
-          name: trigger-integration-dev
-          context: orb-publishing
-          requires:
-            - orb-tools/publish-dev
-  integration-test_deploy:
-    when: << pipeline.parameters.run-integration-tests >>
-    jobs:
-      # Run any integration tests defined within the `jobs` key.
-      - integration-test-1
+
