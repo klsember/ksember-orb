@@ -59,7 +59,7 @@ workflows:
             - bats/run
             - shellcheck/check
       - integration-test-1:
-          requres:
+          requires:
             - orb-tools/publish-dev
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: klsember/test-orb
