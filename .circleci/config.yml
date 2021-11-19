@@ -62,7 +62,6 @@ workflows:
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration-dev
-          publish-token-variable: CI_OWNER_TOKEN
           context: Orbs
           requires:
             - orb-tools/publish-dev
